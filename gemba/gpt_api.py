@@ -40,7 +40,7 @@ class GptApi:
             self.rps_limit = 0
         self.last_call_timestamp = 0
 
-        self.non_batchable_models = ["gpt-3.5-turbo", "gpt-4", "gpt-4-32k"]
+        self.non_batchable_models = ["gpt-3.5-turbo", "gpt-4", "gpt-4-32k", "gpt-4-turbo-2024-04-09"]
         logging.getLogger().setLevel(logging.CRITICAL) # in order to suppress all these HTTP INFO log messages
 
     # answer_id is used for determining if it was the top answer or how deep in the list it was

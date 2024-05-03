@@ -78,6 +78,47 @@ def parse_error_class(error):
 
     return class_name
 
+def per_word_penalty_total(apt, ewc):
+    """ Calculates per word penalty total (PWPT)
+
+    Args:
+        apt (int): Absolute Penalty Total
+        ewc (int): Evaluation Word Count
+    """
+    return apt / ewc
+
+def overall_normed_penalty_total(pwpt, rwc=1000):
+    """Calculates overall normed penalty total (ONPT)
+
+    Args:
+        pwpt (float): Per word penalty total
+        rwc (int, optional): Reference Word Count
+    """
+    return pwpt * rwc
+
+def overall_quality_fraction(pt, rwc=None):
+    """Calculates overall quality fraction (OQF)
+
+    Args:
+        pt (float): Penalty total, if using ONPT you also need to pass RWC
+        rwc (int, optional): Reference Word Count. Defaults to None.
+    """
+    if rwc is None:
+        return 1 - pt
+    else:
+        return 1 - (pt / rwc)
+
+def overall_quality_score(pwpt, msv=100):
+    """Calculates overall quality score (OQS)
+
+    Args:
+        pwpt (float): Per Word Penalty Total
+        msv (int, optional): Maximum Score Value. Defaults to 100 to resemble percentage.
+    """
+    return (1 - pwpt) * msv 
+
+def overall_quality_score_from_apt(apt, ewc):
+    return overall_quality_score(per_word_penalty_total(apt,ewc))
 
 def parse_mqm_answer(x, list_mqm_errors=False, full_desc=True):
     if x is None:
